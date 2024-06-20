@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HouseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HouseRepository::class)]
@@ -16,9 +18,16 @@ class House
     #[ORM\Column(length: 10)]
     private ?string $postcode = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Meter $meter = null;
+    /**
+     * @var Collection<int, MeterReading>
+     */
+    #[ORM\OneToMany(targetEntity: MeterReading::class, mappedBy: 'house')]
+    private Collection $meterReadings;
+
+    public function __construct()
+    {
+        $this->meterReadings = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -47,20 +56,38 @@ class House
     }
 
     /**
-     * @return Meter|null
+     * @return Collection<int, MeterReading>
      */
-    public function getMeter(): ?Meter
+    public function getMeterReadings(): Collection
     {
-        return $this->meter;
+        return $this->meterReadings;
     }
 
     /**
-     * @param Meter $meter
+     * @param MeterReading $meterReading
      * 
      * @return void
      */
-    public function setMeter(Meter $meter): void
+    public function addMeterReading(MeterReading $meterReading): void
     {
-        $this->meter = $meter;
+        if (!$this->meterReadings->contains($meterReading)) {
+            $this->meterReadings->add($meterReading);
+            $meterReading->setHouse($this);
+        }
+    }
+
+    /**
+     * @param MeterReading $meterReading
+     * 
+     * @return void
+     */
+    public function removeMeterReading(MeterReading $meterReading): void
+    {
+        if ($this->meterReadings->removeElement($meterReading)) {
+            // set the owning side to null (unless already changed)
+            if ($meterReading->getHouse() === $this) {
+                $meterReading->setHouse(null);
+            }
+        }
     }
 }

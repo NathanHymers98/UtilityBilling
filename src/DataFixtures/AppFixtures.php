@@ -3,47 +3,52 @@
 namespace App\DataFixtures;
 
 use App\Entity\House;
-use App\Entity\Meter;
 use App\Entity\MeterReading;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @param ObjectManager $manager
+     * 
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
-        $meter = new Meter();
+        $faker = Factory::create('en_GB');
 
-        $startDate = new \DateTime('2023-10-01 00:00:00');
-        $endDate = new \DateTime('2023-11-01 00:00:00');
-        $interval = new \DateInterval('PT1H');
-        $period = new \DatePeriod($startDate, $interval, $endDate);
+        $numberOfHouses = 10;
 
-        $previousReading = 0;
+        for ($i = 0; $i < $numberOfHouses; $i++) {
+            $house = new House();
+            $house->setPostcode($faker->postcode);
 
-        foreach($period as $datetime) {
+            $startDate = new \DateTime('2024-10-01 00:00:00');
+            $endDate = new \DateTime('2024-11-01 00:00:00');
+            $interval = new \DateInterval('PT1H');
+            $period = new \DatePeriod($startDate, $interval, $endDate);
 
-            $meterReading = new MeterReading();
-            $meterReading->setMeter($meter);
-            $meterReading->setTimestamp(clone $datetime);
+            $previousReading = 0;
 
-            $nextReading = $previousReading + mt_rand(1, 50);
+            foreach ($period as $datetime) {
+                $meterReading = new MeterReading();
+                $meterReading->setTimestamp(clone $datetime);
 
-            $meterReading->setReading($nextReading);
+                $nextReading = $previousReading + mt_rand(1, 5);
+                $meterReading->setReading($nextReading);
 
-            $meter->addMeterReading($meterReading);
+                $meterReading->setHouse($house);
 
-            $manager->persist($meterReading);
-            $manager->persist($meter);
+                $manager->persist($meterReading);
 
-            $previousReading = $nextReading;
+                $previousReading = $nextReading;
+            }
+
+            $manager->persist($house);
         }
 
-        $house = new House();
-        $house->setPostcode('DN14 0AR');
-        $house->setMeter($meter);
-
-        $manager->persist($house);
         $manager->flush();
     }
 }

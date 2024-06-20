@@ -22,8 +22,8 @@ class MeterReading
 
     #[ORM\ManyToOne(inversedBy: 'meterReadings')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Meter $meter = null;
-
+    private ?House $house = null;
+    
     /**
      * @return int|null
      */
@@ -67,15 +67,22 @@ class MeterReading
         $this->reading = $reading;
     }
 
-    public function getMeter(): ?Meter
+    /**
+     * @return House|null
+     */
+    public function getHouse(): ?House
     {
-        return $this->meter;
+        return $this->house;
     }
 
-    public function setMeter(?Meter $meter): static
+    /**
+     * @param House|null $house
+     * 
+     * @return void
+     */
+    public function setHouse(?House $house): void
     {
-        $this->meter = $meter;
-
-        return $this;
+        $this->house = $house;
     }
+
 }
