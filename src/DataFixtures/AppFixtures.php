@@ -20,6 +20,7 @@ class AppFixtures extends Fixture
         $faker = Factory::create('en_GB');
 
         $numberOfHouses = 10;
+        $meterId = 0;
 
         for ($i = 0; $i < $numberOfHouses; $i++) {
             $house = new House();
@@ -31,9 +32,11 @@ class AppFixtures extends Fixture
             $period = new \DatePeriod($startDate, $interval, $endDate);
 
             $previousReading = 0;
+            $meterId++;
 
             foreach ($period as $datetime) {
                 $meterReading = new MeterReading();
+                $meterReading->setMeterId($meterId);
                 $meterReading->setTimestamp(clone $datetime);
 
                 $nextReading = $previousReading + mt_rand(1, 5);

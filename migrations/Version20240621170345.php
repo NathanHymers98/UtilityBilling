@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240621153533 extends AbstractMigration
+final class Version20240621170345 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,7 @@ final class Version20240621153533 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE house (id INT AUTO_INCREMENT NOT NULL, postcode VARCHAR(10) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE meter_reading (id INT AUTO_INCREMENT NOT NULL, house_id INT NOT NULL, timestamp DATETIME NOT NULL, reading INT NOT NULL, INDEX IDX_814A20F96BB74515 (house_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE meter_reading (id INT AUTO_INCREMENT NOT NULL, house_id INT NOT NULL, meter_id INT NOT NULL, timestamp DATETIME NOT NULL, reading INT NOT NULL, INDEX IDX_814A20F96BB74515 (house_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE meter_reading ADD CONSTRAINT FK_814A20F96BB74515 FOREIGN KEY (house_id) REFERENCES house (id)');
     }
 

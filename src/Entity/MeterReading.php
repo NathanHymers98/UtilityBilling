@@ -14,6 +14,9 @@ class MeterReading
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(type: Types::INTEGER)]
+    private ?int $meterId = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $timestamp = null;
 
@@ -30,6 +33,24 @@ class MeterReading
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMeterId(): ?int
+    {
+        return $this->meterId;
+    }
+
+    /**
+     * @param int $reading
+     * 
+     * @return void
+     */
+    public function setMeterId(int $meterId): void
+    {
+        $this->meterId = $meterId;
     }
     
     /**

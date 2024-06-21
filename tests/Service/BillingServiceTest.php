@@ -72,10 +72,10 @@ class BillingServiceTest extends TestCase
         yield 'single house, multiple readings, only peak' => [
             'houses' => [
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 08:00:00', 'reading' => 100],
-                    ['timestamp' => '2024-10-10 09:00:00', 'reading' => 153],
-                    ['timestamp' => '2024-10-10 10:00:00', 'reading' => 158],
-                    ['timestamp' => '2024-10-10 11:00:00', 'reading' => 163]
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 08:00:00', 'reading' => 100],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 09:00:00', 'reading' => 153],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 10:00:00', 'reading' => 158],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 11:00:00', 'reading' => 163]
                 ])
             ],
             'rates' => ['peakRate' => 0.2, 'offPeakRate' => 0.1],
@@ -85,16 +85,16 @@ class BillingServiceTest extends TestCase
         yield 'multiple houses, multiple readings, only peak' => [
             'houses' => [
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 08:00:00', 'reading' => 100],
-                    ['timestamp' => '2024-10-10 09:00:00', 'reading' => 153],
-                    ['timestamp' => '2024-10-10 10:00:00', 'reading' => 158],
-                    ['timestamp' => '2024-10-10 11:00:00', 'reading' => 163]
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 08:00:00', 'reading' => 100],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 09:00:00', 'reading' => 153],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 10:00:00', 'reading' => 158],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 11:00:00', 'reading' => 163]
                 ]),
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 08:00:00', 'reading' => 200],
-                    ['timestamp' => '2024-10-10 09:00:00', 'reading' => 250],
-                    ['timestamp' => '2024-10-10 10:00:00', 'reading' => 275],
-                    ['timestamp' => '2024-10-10 11:00:00', 'reading' => 280]
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 08:00:00', 'reading' => 200],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 09:00:00', 'reading' => 250],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 10:00:00', 'reading' => 275],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 11:00:00', 'reading' => 280]
                 ])
             ],
             'rates' => ['peakRate' => 0.2, 'offPeakRate' => 0.1],
@@ -104,10 +104,10 @@ class BillingServiceTest extends TestCase
         yield 'single house, multiple readings, only off-peak' => [
             'houses' => [
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 01:00:00', 'reading' => 100],
-                    ['timestamp' => '2024-10-10 02:00:00', 'reading' => 153],
-                    ['timestamp' => '2024-10-10 03:00:00', 'reading' => 158],
-                    ['timestamp' => '2024-10-10 04:00:00', 'reading' => 163]
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 01:00:00', 'reading' => 100],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 02:00:00', 'reading' => 153],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 03:00:00', 'reading' => 158],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 04:00:00', 'reading' => 163]
                 ])
             ],
             'rates' => ['peakRate' => 0.2, 'offPeakRate' => 0.1],
@@ -117,16 +117,16 @@ class BillingServiceTest extends TestCase
         yield 'multiple houses, multiple readings, only off-peak' => [
             'houses' => [
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 01:00:00', 'reading' => 100],
-                    ['timestamp' => '2024-10-10 02:00:00', 'reading' => 153],
-                    ['timestamp' => '2024-10-10 03:00:00', 'reading' => 158],
-                    ['timestamp' => '2024-10-10 04:00:00', 'reading' => 163]
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 01:00:00', 'reading' => 100],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 02:00:00', 'reading' => 153],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 03:00:00', 'reading' => 158],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 04:00:00', 'reading' => 163]
                 ]),
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 01:00:00', 'reading' => 200],
-                    ['timestamp' => '2024-10-10 02:00:00', 'reading' => 250],
-                    ['timestamp' => '2024-10-10 03:00:00', 'reading' => 275],
-                    ['timestamp' => '2024-10-10 04:00:00', 'reading' => 280]
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 01:00:00', 'reading' => 200],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 02:00:00', 'reading' => 250],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 03:00:00', 'reading' => 275],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 04:00:00', 'reading' => 280]
                 ])
             ],
             'rates' => ['peakRate' => 0.2, 'offPeakRate' => 0.1],
@@ -136,16 +136,16 @@ class BillingServiceTest extends TestCase
         yield 'multiple houses, multiple readings, mix of peak and off-peak' => [
             'houses' => [
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 08:00:00', 'reading' => 100],
-                    ['timestamp' => '2024-10-10 09:00:00', 'reading' => 153],
-                    ['timestamp' => '2024-10-10 10:00:00', 'reading' => 158],
-                    ['timestamp' => '2024-10-10 11:00:00', 'reading' => 163]
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 08:00:00', 'reading' => 100],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 09:00:00', 'reading' => 153],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 10:00:00', 'reading' => 158],
+                    ['meter_id' => 1, 'timestamp' => '2024-10-10 11:00:00', 'reading' => 163]
                 ]),
                 $this->createHouseMock([
-                    ['timestamp' => '2024-10-10 01:00:00', 'reading' => 200],
-                    ['timestamp' => '2024-10-10 02:00:00', 'reading' => 250],
-                    ['timestamp' => '2024-10-10 03:00:00', 'reading' => 275],
-                    ['timestamp' => '2024-10-10 04:00:00', 'reading' => 280]
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 01:00:00', 'reading' => 200],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 02:00:00', 'reading' => 250],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 03:00:00', 'reading' => 275],
+                    ['meter_id' => 2, 'timestamp' => '2024-10-10 04:00:00', 'reading' => 280]
                 ])
             ],
             'rates' => ['peakRate' => 0.2, 'offPeakRate' => 0.1],
@@ -197,6 +197,7 @@ class BillingServiceTest extends TestCase
         
         foreach ($readingsData as $readingData) {
             $reading = new MeterReading();
+            $reading->setMeterId($readingData['meter_id']);
             $reading->setTimestamp(new \DateTime($readingData['timestamp']));
             $reading->setReading($readingData['reading']);
             $house->addMeterReading($reading);

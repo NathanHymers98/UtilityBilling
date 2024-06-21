@@ -8,6 +8,15 @@ use PHPUnit\Framework\TestCase;
 
 class MeterReadingTest extends TestCase
 {
+    public function testGetSetMeterId(): void
+    {
+        $meterReading = new MeterReading();
+        $meterId = 1;
+        $meterReading->setMeterId($meterId);
+        
+        self::assertEquals($meterId, $meterReading->getMeterId());
+    }
+
     public function testGetSetTimestamp(): void
     {
         $meterReading = new MeterReading();

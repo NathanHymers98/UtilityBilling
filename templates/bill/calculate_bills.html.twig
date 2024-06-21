@@ -17,7 +17,7 @@
                 {% for result in results %}
                     <tr>
                         <td>{{ result.house.postcode }}</td>
-                        <td>£{{ result.totalCost }}</td>
+                        <td>£{{ result.totalCost|number_format(2) }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
