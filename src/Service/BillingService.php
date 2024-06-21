@@ -40,10 +40,14 @@ class BillingService
                 if (0 !== $previousReading) {
                     $difference = $reading->getReading() - $previousReading;
                     $totalCost += $difference * $rate;
+                } else {
+                    $totalCost += $reading->getReading() * $rate;
                 }
     
                 $previousReading = $reading->getReading();
             }
+
+            $totalCost = round($totalCost, 2);
 
             $results[] = [
                 'house' => $house,

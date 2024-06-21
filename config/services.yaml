@@ -20,7 +20,9 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    App\Controller\RateController:
+    App\Controller\Rate\RateController:
+    
+    App\Controller\Bill\BillController:
         arguments:
             - '@App\Service\BillingService'
 
