@@ -178,12 +178,58 @@ class BillingServiceTest extends TestCase
      */
     public function getRateForHourDataProvider(): iterable
     {
-        yield 'peak hour' => [10, ['peakRate' => 0.2, 'offPeakRate' => 0.1], 0.2];
-        yield 'off-peak hour' => [2, ['peakRate' => 0.2, 'offPeakRate' => 0.1], 0.1];
-        yield 'boundary peak start' => [7, ['peakRate' => 0.2, 'offPeakRate' => 0.1], 0.2];
-        yield 'boundary peak end' => [23, ['peakRate' => 0.2, 'offPeakRate' => 0.1], 0.2];
-        yield 'boundary off-peak start' => [0, ['peakRate' => 0.2, 'offPeakRate' => 0.1], 0.1];
-        yield 'boundary off-peak end' => [6, ['peakRate' => 0.2, 'offPeakRate' => 0.1], 0.1];
+        yield 'peak hour' => [
+            'hour' => 10,
+            'rates' => [
+                    'peakRate' => 0.2,
+                    'offPeakRate' => 0.1
+            ],
+            'expectedRate' => 0.2
+        ];
+
+        yield 'off-peak hour' => [
+            'hour' => 2,
+            'rates' => [
+                    'peakRate' => 0.2,
+                    'offPeakRate' => 0.1
+            ],
+            'expectedRate' => 0.1
+        ];
+
+        yield 'boundary peak start' => [
+            'hour' => 7,
+            'rates' => [
+                    'peakRate' => 0.2,
+                    'offPeakRate' => 0.1
+            ],
+            'expectedRate' => 0.2
+        ];
+
+        yield 'boundary peak end' => [
+            'hour' => 23,
+            'rates' => [
+                    'peakRate' => 0.2,
+                    'offPeakRate' => 0.1
+            ],
+            'expectedRate' => 0.2
+        ];
+
+        yield 'boundary off-peak start' => [
+            'hour' => 0,
+            'rates' => [
+                'peakRate' => 0.2,
+                'offPeakRate' => 0.1
+            ], 
+            'expectedRate' => 0.1
+        ];
+
+        yield 'boundary off-peak end' => [
+            'hour' => 6,
+            'rates' => [
+                'peakRate' => 0.2,
+                'offPeakRate' => 0.1
+            ], 
+            'expectedRate' => 0.1];
     }
 
     /**
