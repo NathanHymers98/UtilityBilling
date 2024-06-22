@@ -37,13 +37,11 @@ class RateController extends AbstractController
 
             $session->set('rates', $rates);
 
-            $this->addFlash('success', 'Rates have been set.');
-
-            return $this->redirectToRoute('input_rates');
+            return $this->redirectToRoute('calculate_bills');
         }
 
         return $this->render('rate/input_rates.html.twig', [
-            'rateForm' => $form->createView(),
+            'rateForm' => $form,
         ]);
     }
 }

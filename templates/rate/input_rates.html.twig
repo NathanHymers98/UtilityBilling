@@ -6,17 +6,20 @@
  <div class="rates-box">
         <div class="form-container">
             <h2>Set Rates</h2>
-            {{ form_start(rateForm) }}
-                {{ form_row(rateForm.peakRate) }}
-                {{ form_row(rateForm.offPeakRate) }}
+            {{ form_start(rateForm.peakRate) }}
+                <div class="form-group">
+                    {{ form_errors(rateForm.peakRate, {'attr': {'class': 'form-error'}}) }}
+                    {{ form_label(rateForm.peakRate) }}
+                    {{ form_widget(rateForm.peakRate) }}
+                </div>
+                <div class="form-group">
+                    {{ form_errors(rateForm.offPeakRate, {'attr': {'class': 'form-error'}}) }}
+                    {{ form_label(rateForm.offPeakRate) }}
+                    {{ form_widget(rateForm.offPeakRate) }}
+                </div>
 
-                <button class="button" type="submit">Submit Rates</button>
+                <button type="submit" class="btn btn-primary">Submit and Calculate Bills</button>
             {{ form_end(rateForm) }}
-
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success">{{ message }}</div>
-                <a href="{{ path('calculate_bills') }}" class="button">Click here to calculate bills</a>
-            {% endfor %}
         </div>
     </div>
 

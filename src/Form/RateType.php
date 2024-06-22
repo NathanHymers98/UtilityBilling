@@ -4,8 +4,11 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class RateType extends AbstractType
 {
@@ -18,13 +21,34 @@ class RateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('peakRate', MoneyType::class, [
+            ->add('peakRate', NumberType::class, [
                 'label' => 'Peak Unit Rate (GBP pence per kWh)',
-                'currency' => 'GBP'
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                    new Type([
+                        'type' => 'numeric',
+                        'message' => 'Please enter a valid number e.g. 23 or 23.754',
+                    ]),
+                    new GreaterThan([
+                        'value' => 1,
+                        'message' => 'The value must be greater than 1.000.',
+                    ]),
+                ],
+                'scale' => 3,
             ])
-            ->add('offPeakRate', MoneyType::class, [
+            ->add('offPeakRate', NumberType::class, [
                 'label' => 'Off-Peak Unit Rate (GBP pence per kWh)',
-                'currency' => 'GBP'
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                    new Type(['type' => 'numeric']),
+                    new GreaterThan([
+                        'value' => 1,
+                        'message' => 'The value must be greater than 1.000.',
+                    ]),
+                ],
+                'scale' => 3,
             ]);
     }
 
