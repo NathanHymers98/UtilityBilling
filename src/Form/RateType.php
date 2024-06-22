@@ -26,10 +26,7 @@ class RateType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
-                    new Type([
-                        'type' => 'numeric',
-                        'message' => 'Please enter a valid number e.g. 23 or 23.754',
-                    ]),
+                    new Type(['type' => 'numeric']),
                     new GreaterThan([
                         'value' => 1,
                         'message' => 'The value must be greater than 1.000.',
