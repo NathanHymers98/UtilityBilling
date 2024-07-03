@@ -54,7 +54,7 @@ class BillingServiceTest extends TestCase
 
         $billingService = new BillingService($entityManager, $requestStack);
 
-        $results = $billingService->calculateBills();
+        $results = $billingService->calculateBills($session);
 
         self::assertCount(count($houses), $results);
 

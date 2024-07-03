@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\House;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class BillingService
 {
@@ -18,12 +19,12 @@ class BillingService
     }
 
     /**
+     * @param SessionInterface $session
+     * 
      * @return array
      */
-    public function calculateBills(): array
+    public function calculateBills(SessionInterface $session): array
     {
-        $session = $this->requestStack->getSession();
-
         $houses = $this->entityManager->getRepository(House::class)->findAll();
         $results = [];
         $rates = $session->get('rates');
@@ -33,6 +34,7 @@ class BillingService
     
             $totalCost = 0;
             $previousReading = 0;
+            
             foreach ($readings as $reading) {
                 $hour = (int)$reading->getTimestamp()->format('G');
                 $rate = $this->getRateForHour($hour, $rates);

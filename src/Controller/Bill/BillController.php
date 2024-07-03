@@ -28,7 +28,7 @@ class BillController extends AbstractController
             return $this->redirectToRoute('input_rates');
         }
 
-        $results = $this->billingService->calculateBills();
+        $results = $this->billingService->calculateBills($session);
 
         $session->clear();
 
