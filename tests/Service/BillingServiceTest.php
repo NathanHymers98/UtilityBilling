@@ -8,7 +8,6 @@ use App\Service\BillingService;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 use App\Repository\HouseRepository;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class BillingServiceTest extends TestCase
@@ -45,14 +44,7 @@ class BillingServiceTest extends TestCase
             ]
         );
 
-        $requestStack = $this->createConfiguredMock(
-            RequestStack::class,
-            [
-                'getSession' => $session
-            ]
-        );
-
-        $billingService = new BillingService($entityManager, $requestStack);
+        $billingService = new BillingService($entityManager);
 
         $results = $billingService->calculateBills($session);
 
@@ -164,7 +156,7 @@ class BillingServiceTest extends TestCase
      */
     public function testGetRateForHour(int $hour, array $rates, float $expectedRate): void
     {
-        $billingService = new BillingService($this->createMock(EntityManager::class), $this->createMock(RequestStack::class));
+        $billingService = new BillingService($this->createMock(EntityManager::class));
 
         $reflection = new \ReflectionClass(BillingService::class);
         $method = $reflection->getMethod('getRateForHour');

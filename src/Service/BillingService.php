@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\House;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class BillingService
@@ -13,7 +12,7 @@ class BillingService
      * @param  EntityManager $entityManager
      * @param  RequestStack $requestStack
      */
-    public function __construct(private EntityManager $entityManager, private RequestStack $requestStack)
+    public function __construct(private EntityManager $entityManager)
     {
 
     }
